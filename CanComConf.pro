@@ -27,13 +27,18 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     groupedit.cpp \
-    maskedit.cpp
+    maskedit.cpp \
+    messagegroup.cpp \
+    messageentry.cpp
 
 HEADERS += \
         mainwindow.h \
     groupedit.h \
     structs.h \
-    maskedit.h
+    maskedit.h \
+    messagegroup.h \
+    messageentry.h \
+    messagetreeentry.h
 
 FORMS += \
         mainwindow.ui \
