@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/symbols">
+        <file>symbols/add_entry.svg</file>
+        <file>symbols/add_group.svg</file>
+        <file>symbols/remove_entry.svg</file>
+        <file>symbols/remove_group.svg</file>
+        <file>symbols/element_down.svg</file>
+        <file>symbols/element_up.svg</file>
+    </qresource>
+</RCC>

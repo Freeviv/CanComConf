@@ -17,6 +17,15 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void createToolbar();
+
+private slots:
+    void toolbar_addGroupPressed();
+    void toolbar_removeGroupPressed();
+    void toolbar_addEntryPressed();
+    void toolbar_removeEntryPressed();
+    void toolbar_elementMoveUpPressed();
+    void toolbar_elementMoveDownPressed();
 };
 
 #endif // MAINWINDOW_H

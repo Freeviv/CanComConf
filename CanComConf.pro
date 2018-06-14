@@ -26,12 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    sidemenu.cpp
+    groupedit.cpp \
+    maskedit.cpp
 
 HEADERS += \
         mainwindow.h \
-    sidemenu.h
+    groupedit.h \
+    structs.h \
+    maskedit.h
 
 FORMS += \
         mainwindow.ui \
-    sidemenu.ui
+    groupedit.ui
+
+RESOURCES += \
+    symbols.qrc
