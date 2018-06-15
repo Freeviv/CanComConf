@@ -26,23 +26,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    groupedit.cpp \
-    maskedit.cpp \
-    messagegroup.cpp \
-    messageentry.cpp
+        groupedit.cpp \
+        maskedit.cpp \
+        messagegroup.cpp \
+        messageentry.cpp
+        entryedit.cpp
 
 HEADERS += \
         mainwindow.h \
-    groupedit.h \
-    structs.h \
-    maskedit.h \
-    messagegroup.h \
-    messageentry.h \
-    messagetreeentry.h
+        groupedit.h \
+        structs.h \
+        maskedit.h \
+        messagegroup.h \
+        messageentry.h \
+        messagetreeentry.h
+        entryedit.h
 
 FORMS += \
         mainwindow.ui \
-    groupedit.ui
+        groupedit.ui \
+        entryedit.ui
 
 RESOURCES += \
     symbols.qrc
