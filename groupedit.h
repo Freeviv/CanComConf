@@ -17,6 +17,8 @@ class GroupEdit : public QDialog
 public:
     explicit GroupEdit(QWidget *parent = 0);
     ~GroupEdit();
+    GroupInformation getResult();
+    QString getName();
 
 private slots:
     void on_radioButton_si_clicked();
@@ -24,6 +26,8 @@ private slots:
     void on_checkBox_maskEnable_stateChanged(int arg1);
     void on_lineEdit_mask_cursorPositionChanged(int prev, int cur);
     void on_lineEdit_mask_textEdited(const QString &arg1);
+    void on_radioButton_maskEnable_clicked();
+    void on_radioButton_priority_clicked();
 
 private:
     Ui::GroupEdit *ui;
