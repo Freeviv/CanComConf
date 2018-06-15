@@ -17,13 +17,13 @@ class GroupEdit : public QDialog
 public:
     explicit GroupEdit(QWidget *parent = 0);
     ~GroupEdit();
+    void setAsEdit(GroupInformation info, QString name);
     GroupInformation getResult();
     QString getName();
 
 private slots:
     void on_radioButton_si_clicked();
     void on_radioButton_ei_clicked();
-    void on_checkBox_maskEnable_stateChanged(int arg1);
     void on_lineEdit_mask_cursorPositionChanged(int prev, int cur);
     void on_lineEdit_mask_textEdited(const QString &arg1);
     void on_radioButton_maskEnable_clicked();

@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     createToolbar();
+    ui->groupEntries->setHeaderLabel(tr("Unknown Projekt"));
 }
 
 MainWindow::~MainWindow()
@@ -29,10 +30,15 @@ void MainWindow::createToolbar()
 
 void MainWindow::toolbar_addGroupPressed()
 {
-    qDebug("Add Group");
     GroupEdit edit;
     edit.setWindowTitle(tr("Add Group"));
     edit.exec();
+    GroupInformation info = edit.getResult();
+    QString name = edit.getName();
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->groupEntries);
+    item->setText(0,name);
+    item->setText(1,QString::number(info.priority));
+    ui->groupEntries->addTopLevelItem(item);
 }
 
 void MainWindow::toolbar_removeGroupPressed()

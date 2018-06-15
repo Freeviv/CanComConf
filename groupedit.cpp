@@ -1,8 +1,10 @@
 #include "groupedit.h"
 #include "ui_groupedit.h"
 
+
 #include <QDebug>
 #include <QString>
+#include <QMessageBox>
 
 #include <cmath>
 
@@ -22,20 +24,61 @@ GroupEdit::~GroupEdit()
     delete ui;
 }
 
+void GroupEdit::setAsEdit(GroupInformation info, QString name)
+{
+    ui->lineEdit_name->setText(name);
+    switch(info.id_type)
+    {
+    case STANDARD:
+        on_radioButton_si_clicked();
+        break;
+    case EXTENDED:
+        on_radioButton_ei_clicked();
+        break;
+    default:
+        qWarning("Unknown Identifier type!");
+        break;
+    }
+    if(info.maskSet)
+    {
+        QString mask = QString::number(info.mask,2);
+        QString dontCare = QString::number(info.dontCares,2);
+        QString maskText;
+        for(int i = 0; i < idType; ++i)
+        {
+            maskText += (dontCare.at(i) == '0') ? mask.at(i) : 'x';
+        }
+        ui->lineEdit_mask->setText(maskText);
+    }
+    else
+    {
+        ui->spinBox_priority->setValue(info.priority);
+    }
+}
+
 GroupInformation GroupEdit::getResult()
 {
     GroupInformation info;
     info.id_type = idType;
     QString mask_raw = ui->lineEdit_mask->text();
-    bool ok;
-    QString dontCares = mask_raw.replace('1','0');
-    QString mask = mask_raw.replace('x','0');
-    info.dontCares = dontCares.toInt(&ok,2);
-    if(!ok)
-        qWarning("Error while converting dont-care mask");
-    info.mask = mask.toInt(&ok,2);
-    if(!ok)
-        qWarning("Error while converting mask");
+    if(ui->radioButton_maskEnable->isChecked())
+    {
+        bool ok;
+        QString dontCares = mask_raw.replace('1','0');
+        QString mask = mask_raw.replace('x','0');
+        info.dontCares = dontCares.toInt(&ok,2);
+        if(!ok)
+            qWarning("Error while converting dont-care mask");
+        info.mask = mask.toInt(&ok,2);
+        if(!ok)
+            qWarning("Error while converting mask");
+        info.maskSet = true;
+    }
+    else
+    {
+        info.priority = ui->spinBox_priority->value();
+        info.maskSet = false;
+    }
     info.nameSize = 0;
 
     return info;
@@ -48,6 +91,17 @@ QString GroupEdit::getName()
 
 void GroupEdit::on_radioButton_si_clicked()
 {
+
+    if(ui->lineEdit_mask->text().size() >= STANDARD)
+    {
+        int rv = QMessageBox::warning(this,tr("Discard Mask?"),tr("Your current mask is longer than 11 bits"),QMessageBox::Abort,QMessageBox::Ok);
+        if(rv == QMessageBox::Abort)
+        {
+            ui->radioButton_ei->setChecked(true);
+            ui->radioButton_si->setChecked(false);
+            return;
+        }
+    }
     ui->lineEdit_mask->setMaxLength(STANDARD);
     idType = STANDARD;
 }
@@ -56,21 +110,6 @@ void GroupEdit::on_radioButton_ei_clicked()
 {
     ui->lineEdit_mask->setMaxLength(EXTENDED);
     idType = EXTENDED;
-}
-
-void GroupEdit::on_checkBox_maskEnable_stateChanged(int arg1)
-{
-    qDebug() << arg1;
-    if(arg1)
-    {
-        // checked
-        ui->lineEdit_mask->setEnabled(true);
-    }
-    else
-    {
-        // not checked
-        ui->lineEdit_mask->setEnabled(false);
-    }
 }
 
 void GroupEdit::on_lineEdit_mask_cursorPositionChanged(int prev, int cur)
