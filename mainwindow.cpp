@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 
 #include "groupedit.h"
+#include "qtreemessageitem.h"
+
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +18,16 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* event)
+{
+    // clear selection on escape to allow adding new groups on root-level
+    if(event->key() == Qt::Key_Escape)
+    {
+        ui->groupEntries->selectionModel()->clearSelection();
+    }
+    QMainWindow::keyPressEvent(event);
 }
 
 void MainWindow::createToolbar()
@@ -33,12 +46,38 @@ void MainWindow::toolbar_addGroupPressed()
     GroupEdit edit;
     edit.setWindowTitle(tr("Add Group"));
     edit.exec();
-    GroupInformation info = edit.getResult();
+    ItemInformation info = edit.getResult();
     QString name = edit.getName();
-    QTreeWidgetItem *item = new QTreeWidgetItem(ui->groupEntries);
-    item->setText(0,name);
-    item->setText(1,QString::number(info.priority));
-    ui->groupEntries->addTopLevelItem(item);
+
+    if(ui->groupEntries->selectedItems().size() > 0)
+    {
+        // get one selected element and make it root for new element
+        QTreeMessageItem *parent = dynamic_cast<QTreeMessageItem*>(ui->groupEntries->selectedItems().first());
+        if(parent == NULL)
+        {
+            qDebug("dynamic_cast error 1");
+            return;
+        }
+        // get the "root"-group-element of first selected item
+        while(parent->getType() != Group)
+        {
+            parent = dynamic_cast<QTreeMessageItem*>(parent->getParent());
+            if(parent == NULL)
+            {
+                qDebug("dynamic_cast error 2");
+                return;
+            }
+        }
+        parent->addMessageItem(info,name);
+    }
+    else
+    {
+        qDebug("New toplevel item");
+        QTreeMessageItem *item = new QTreeMessageItem(ui->groupEntries);
+        item->applyItemInfo(info,name);
+        ui->groupEntries->addTopLevelItem(item);
+    }
+
 }
 
 void MainWindow::toolbar_removeGroupPressed()

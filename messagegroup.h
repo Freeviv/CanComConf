@@ -11,13 +11,6 @@
 #include "messageentry.h"
 #include "structs.h"
 
-enum GroupType
-{
-    Group,
-    Entries,
-    Undefined
-};
-
 
 class MessageEntry;
 

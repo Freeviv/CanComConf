@@ -10,10 +10,12 @@ enum IdentifierType
 };
 
 #pragma pack(push,1)
-struct GroupInformation
+struct ItemInformation
 {
     uint16_t nameSize;
     IdentifierType id_type;
+    bool group_info;
+    bool idSet;
     bool maskSet;
     uint32_t dontCares : 29;
     uint32_t mask : 29;
@@ -23,14 +25,6 @@ struct GroupInformation
     // name
 };
 
-struct MessageInformation
-{
-    uint16_t nameSize;
-    IdentifierType id_type;
-    bool idSet;
-    uint32_t id : 29;
-    int64_t priority;
-};
 #pragma pack(pop)
 
 #endif // STRUCTS_H

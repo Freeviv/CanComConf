@@ -17,8 +17,8 @@ class GroupEdit : public QDialog
 public:
     explicit GroupEdit(QWidget *parent = 0);
     ~GroupEdit();
-    void setAsEdit(GroupInformation info, QString name);
-    GroupInformation getResult();
+    void setAsEdit(ItemInformation info, QString name);
+    ItemInformation getResult();
     QString getName();
 
 private slots:

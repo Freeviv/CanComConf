@@ -15,6 +15,9 @@ public:
     explicit EntryEdit(QWidget *parent = 0);
     ~EntryEdit();
 
+private slots:
+    void on_lineEdit_mask_cursorPositionChanged(int prev, int cur);
+
 private:
     Ui::EntryEdit *ui;
 };

@@ -24,7 +24,7 @@ GroupEdit::~GroupEdit()
     delete ui;
 }
 
-void GroupEdit::setAsEdit(GroupInformation info, QString name)
+void GroupEdit::setAsEdit(ItemInformation info, QString name)
 {
     ui->lineEdit_name->setText(name);
     switch(info.id_type)
@@ -56,9 +56,9 @@ void GroupEdit::setAsEdit(GroupInformation info, QString name)
     }
 }
 
-GroupInformation GroupEdit::getResult()
+ItemInformation GroupEdit::getResult()
 {
-    GroupInformation info;
+    ItemInformation info;
     info.id_type = idType;
     QString mask_raw = ui->lineEdit_mask->text();
     if(ui->radioButton_maskEnable->isChecked())
@@ -80,7 +80,7 @@ GroupInformation GroupEdit::getResult()
         info.maskSet = false;
     }
     info.nameSize = 0;
-
+    info.group_info = true;
     return info;
 }
 
