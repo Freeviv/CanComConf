@@ -28,8 +28,6 @@ SOURCES += \
         mainwindow.cpp \
         groupedit.cpp \
         maskedit.cpp \
-#        messagegroup.cpp \
-#        messageentry.cpp \
         entryedit.cpp \
         qtreemessageitem.cpp
 
@@ -38,9 +36,6 @@ HEADERS += \
         groupedit.h \
         structs.h \
         maskedit.h \
-#        messagegroup.h \
-#        messageentry.h \
-#        messagetreeentry.h \
         entryedit.h \
         qtreemessageitem.h
 
