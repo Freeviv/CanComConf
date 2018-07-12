@@ -63,7 +63,6 @@ ItemInformation GroupEdit::getResult()
     if(ui->radioButton_maskEnable->isChecked())
     {
         bool ok;
-        //TODO convert correctly
         QString dontCares(ui->lineEdit_mask->text());
         dontCares.replace('1','0').replace('x','1');
         QString mask(ui->lineEdit_mask->text());
@@ -75,8 +74,6 @@ ItemInformation GroupEdit::getResult()
         if(!ok)
             qWarning("Error while converting mask");
         info.maskSet = true;
-        qDebug() << dontCares;
-        qDebug() << mask;
     }
     else
     {
