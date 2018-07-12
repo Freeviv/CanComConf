@@ -60,13 +60,14 @@ ItemInformation GroupEdit::getResult()
 {
     ItemInformation info;
     info.id_type = idType;
-    QString mask_raw = ui->lineEdit_mask->text();
     if(ui->radioButton_maskEnable->isChecked())
     {
         bool ok;
         //TODO convert correctly
-        QString dontCares = mask_raw.replace('1','0').replace('x','1');
-        QString mask = mask_raw.replace('x','0');
+        QString dontCares(ui->lineEdit_mask->text());
+        dontCares.replace('1','0').replace('x','1');
+        QString mask(ui->lineEdit_mask->text());
+        mask.replace('x','0');
         info.dontCares = dontCares.toInt(&ok,2);
         if(!ok)
             qWarning("Error while converting dont-care mask");
