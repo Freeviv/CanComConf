@@ -32,7 +32,17 @@ bool QTreeMessageItem::applyItemInfo(ItemInformation info, QString name)
     if(m_type_self == Group)
     {
         m_info = new QTreeMessageItem(this,QStringList("Information"));
+
         // TODO insert information here
+        QString str;
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_info);
+        item->setText(0,str.sprintf("%-30s %s","Identifier Type",(info.id_type == STANDARD) ? "STANDARD" : "EXTENDED"));
+        m_info->addChild(item);
+
+        item = new QTreeWidgetItem(m_info);
+        item->setText(0,str.sprintf("%-30s %s","Don't cares",(info.id_type == STANDARD) ? "STANDARD" : "EXTENDED"));
+        m_info->addChild(item);
+
 
         m_children = new QTreeMessageItem(this);
         m_children->setText(0,tr("Children"));
@@ -46,9 +56,9 @@ bool QTreeMessageItem::applyItemInfo(ItemInformation info, QString name)
 
 bool QTreeMessageItem::addMessageItem(ItemInformation info, QString name)
 {
-    QTreeMessageItem *item = new QTreeMessageItem(this);
+    QTreeMessageItem *item = new QTreeMessageItem(m_children);
     item->applyItemInfo(info,name);
-    this->removeChild(item);
+    //this->removeChild(item);
     m_children->addChild(item);
     return true;
 }
