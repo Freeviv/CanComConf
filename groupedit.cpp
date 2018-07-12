@@ -64,7 +64,8 @@ ItemInformation GroupEdit::getResult()
     if(ui->radioButton_maskEnable->isChecked())
     {
         bool ok;
-        QString dontCares = mask_raw.replace('1','0');
+        //TODO convert correctly
+        QString dontCares = mask_raw.replace('1','0').replace('x','1');
         QString mask = mask_raw.replace('x','0');
         info.dontCares = dontCares.toInt(&ok,2);
         if(!ok)
@@ -73,6 +74,8 @@ ItemInformation GroupEdit::getResult()
         if(!ok)
             qWarning("Error while converting mask");
         info.maskSet = true;
+        qDebug() << dontCares;
+        qDebug() << mask;
     }
     else
     {
