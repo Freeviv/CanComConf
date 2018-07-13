@@ -5,6 +5,8 @@
 #include "qtreemessageitem.h"
 
 #include <QKeyEvent>
+#include <QShortcut>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     createToolbar();
     ui->groupEntries->setHeaderLabel(tr("Unknown Projekt"));
+    connect(ui->groupEntries,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(treeWidget_doubleClickEvent(QTreeWidgetItem*,int)));
 }
 
 MainWindow::~MainWindow()
@@ -40,12 +43,52 @@ void MainWindow::createToolbar()
     ui->mainToolBar->addAction(QIcon(":/symbols/symbols/element_down.svg"),tr("Element down"),this,SLOT(toolbar_elementMoveDownPressed()));
 }
 
+void MainWindow::contentEdited(bool changed)
+{
+    if(changed)
+    {
+        m_contentChanged = changed;
+        // TODO mark this in some way
+    }
+}
+
+void MainWindow::treeWidget_doubleClickEvent(QTreeWidgetItem *item, int column)
+{
+    // Does not work yet!
+    (void)column; // we only have one, so we do not need this one
+    QTreeMessageItem *l_item = dynamic_cast<QTreeMessageItem*>(item);
+    // this will not be executed more than 3 times
+    while(l_item && (l_item->getType() != Group || l_item->getType() != Item))
+    {
+        l_item = dynamic_cast<QTreeMessageItem*>(l_item->getParent());
+    }
+    if(l_item)
+    {
+        if(l_item->getType() == Group)
+        {
+            GroupEdit edit;
+            edit.setAsEdit(l_item->getInfo(),l_item->getName());
+            connect(&edit,SIGNAL(changedInformation(bool)),this,SLOT(contentEdited(bool)));
+            edit.exec();
+            if(m_contentChanged)
+            {
+                // apply changes
+                l_item->applyItemInfo(edit.getResult(),edit.getName());
+            }
+        }
+        else
+        {
+            // Is Entry
+        }
+    }
+}
 
 void MainWindow::toolbar_addGroupPressed()
 {
     GroupEdit edit;
     edit.setWindowTitle(tr("Add Group"));
-    edit.exec();
+    if(!edit.exec())
+        return;
     ItemInformation info = edit.getResult();
     QString name = edit.getName();
 
@@ -103,4 +146,24 @@ void MainWindow::toolbar_elementMoveUpPressed()
 void MainWindow::toolbar_elementMoveDownPressed()
 {
     qDebug("Element move down");
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+
+}
+
+void MainWindow::on_actionSave_as_triggered()
+{
+
 }
