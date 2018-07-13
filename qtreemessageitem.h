@@ -27,6 +27,8 @@ public:
     TreeItemType getType() const;
     QObject *getParent() const;
     QByteArray getData() const;
+    ItemInformation getInfo() const;
+    QString getName() const;
 
 private:
     QObject *m_parent;

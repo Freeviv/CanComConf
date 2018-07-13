@@ -92,3 +92,13 @@ QByteArray QTreeMessageItem::getData() const
     info.append(m_name);
     return info + data;
 }
+
+ItemInformation QTreeMessageItem::getInfo() const
+{
+    return m_info_struct;
+}
+
+QString QTreeMessageItem::getName() const
+{
+    return m_name;
+}
