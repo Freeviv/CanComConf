@@ -17,6 +17,14 @@ GroupEdit::GroupEdit(QWidget *parent) :
     idType = STANDARD;
     ui->label_wrongMaskInput->hide();
     ui->spinBox_priority->setEnabled(false);
+
+    ui->label_empty_fields->setVisible(false);
+    QPalette lp = ui->label_empty_fields->palette();
+    lp.setColor(ui->label_empty_fields->foregroundRole(),Qt::red);
+    ui->label_empty_fields->setPalette(lp);
+
+    wrong_input.setColor(QPalette::Base,Qt::red);
+    wrong_input.setColor(QPalette::Text,Qt::black);
 }
 
 GroupEdit::~GroupEdit()
@@ -88,6 +96,31 @@ ItemInformation GroupEdit::getResult()
 QString GroupEdit::getName()
 {
     return ui->lineEdit_name->text();
+}
+
+void GroupEdit::done(int res)
+{
+    if(res)
+    {
+        bool notComplete = false;
+        if(ui->lineEdit_name->text().isEmpty())
+        {
+            ui->lineEdit_name->setPalette(wrong_input);
+            notComplete = true;
+        }
+        qDebug() << ui->lineEdit_mask->text().isEmpty();
+        if(ui->lineEdit_mask->text().isEmpty())
+        {
+            ui->lineEdit_mask->setPalette(wrong_input);
+            notComplete = true;
+        }
+        if(notComplete)
+        {
+            ui->label_empty_fields->setVisible(true);
+            return;
+        }
+    }
+    QDialog::done(res);
 }
 
 void GroupEdit::on_radioButton_si_clicked()

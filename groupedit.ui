@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>463</width>
-    <height>333</height>
+    <height>358</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,13 +60,6 @@
       <string>Masking and Priority</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,1">
-      <item row="2" column="0">
-       <widget class="MaskEdit" name="lineEdit_mask">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input the Groupmask. Dont Cares are define with &amp;quot;x&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_wrongMaskInput">
         <property name="enabled">
@@ -74,16 +67,6 @@
         </property>
         <property name="text">
          <string>Wrong Input!</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QRadioButton" name="radioButton_maskEnable">
-        <property name="text">
-         <string>Specifiy Mask</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -116,23 +99,20 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="1">
-       <widget class="QSpinBox" name="spinBox_priority">
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-        <property name="minimum">
-         <number>-2048</number>
-        </property>
-        <property name="maximum">
-         <number>2048</number>
+      <item row="2" column="0">
+       <widget class="MaskEdit" name="lineEdit_mask">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input the Groupmask. Dont Cares are define with &amp;quot;x&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QRadioButton" name="radioButton_priority">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioButton_maskEnable">
         <property name="text">
-         <string>Specify Priority</string>
+         <string>Specifiy Mask</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -154,6 +134,26 @@
         </item>
        </layout>
       </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="radioButton_priority">
+        <property name="text">
+         <string>Specify Priority</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="spinBox_priority">
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+        <property name="minimum">
+         <number>-2048</number>
+        </property>
+        <property name="maximum">
+         <number>2048</number>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -169,6 +169,13 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_empty_fields">
+     <property name="text">
+      <string>Required Fields</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

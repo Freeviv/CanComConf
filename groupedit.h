@@ -21,6 +21,12 @@ public:
     ItemInformation getResult();
     QString getName();
 
+public slots:
+    void done(int res);
+
+signals:
+    void changedInformation(bool changed); // used when in edit-mode
+
 private slots:
     void on_radioButton_si_clicked();
     void on_radioButton_ei_clicked();
@@ -32,6 +38,7 @@ private slots:
 private:
     Ui::GroupEdit *ui;
     IdentifierType idType;
+    QPalette wrong_input;
 };
 
 #endif // GROUPEDIT_H
